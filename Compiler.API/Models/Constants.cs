@@ -29,4 +29,6 @@ public static class  Constants
                 Assert.IsTrue(2 == generator.GenerateNum());
             }
         }";
+
+    public const string TestClassName = "Tests";
 }

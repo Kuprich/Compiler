@@ -104,7 +104,7 @@ using (var ms = new MemoryStream())
                 obj, 
                 args: new object[] {"Hello Wrold"});
 
-            //TestRunner runner = new TestRunner();
+            TestRunner runner = new TestRunner();
 
             ////Type delegateType;
 
@@ -127,7 +127,7 @@ using (var ms = new MemoryStream())
 
             //Action action = (Action)d;
 
-            //runner.RunTestClass(obj?.GetType());
+            runner.RunTestClass(obj?.GetType());
 
             //return;
 

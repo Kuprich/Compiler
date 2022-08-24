@@ -1,10 +1,13 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Compiler.API.Models;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
+using NUnit.Engine;
 using NUnit.Framework;
 using NUnitLite;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Xml;
 
 namespace Compiler.API.Services;
 
@@ -57,7 +60,7 @@ public class CompilerService
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 Assembly assembly = Assembly.Load(memoryStream.ToArray());
 
-                var testRunner = new AutoRun(assembly);
+                TestRunnerService.RunAllTestsFromAssembly(assembly);
 
             }
 
