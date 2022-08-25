@@ -1,13 +1,8 @@
 ﻿using Compiler.API.Models;
-using Compiler.API.Services;
+using Compiler.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Emit;
-using NUnit.Engine;
-using NUnit.Framework;
-using NUnitLite;
-using System.Reflection;
 
 namespace Compiler.API.Controllers;
 
@@ -15,19 +10,31 @@ namespace Compiler.API.Controllers;
 [ApiController]
 public class CompilerController : ControllerBase
 {
+    private readonly ICompilerService _compilerService;
+    private readonly ITestRunnerService _testRunnerService;
+
+    public CompilerController(ICompilerService compilerService, ITestRunnerService testRunnerService)
+    {
+        _compilerService = compilerService;
+        _testRunnerService = testRunnerService;
+    }
 
     [HttpGet("[action]")]
     public IActionResult RunTests()
     {
-        
-        CSharpCompilation compilation = CompilerService.CreateCompilationObject(new []{ Constants.MainClassText, Constants.TestClassText });
 
-        List<Diagnostic> CompilationResult = CompilerService.CompileSourceCode(compilation);
+        CSharpCompilation compilation = _compilerService.CreateCompilationObject(new[] { Constants.MainClassText, Constants.TestClassText });
 
-        List<string> result = CompilationResult.Select(d => d.ToString()).ToList();
+        List<Diagnostic> CompilationResult = _compilerService.CompileSourceCode(compilation);
 
+        List<string> compilationResult = CompilationResult.Select(d => d.ToString()).ToList();
 
-        return Ok(result);
+        if (compilationResult.Any())
+            return Ok(compilationResult);
+
+        List<string> testResult = _testRunnerService.RunAllTestsFromAssembly(_compilerService.Assembly!);
+
+        return Ok(testResult);
 
     }
 }

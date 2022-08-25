@@ -16,7 +16,8 @@ public static class  Constants
     public const string TestClassText = @"
         using System;
         using NUnit.Framework;
-
+        
+        [TestFixture]
         public class Tests
         {
             [SetUp]
@@ -24,6 +25,13 @@ public static class  Constants
 
             [Test]
             public void Test1()
+            {
+                NumberGenerator generator = new ();
+                Assert.IsTrue(1 == generator.GenerateNum());
+            }
+
+            [Test]
+            public void Test2()
             {
                 NumberGenerator generator = new ();
                 Assert.IsTrue(2 == generator.GenerateNum());
