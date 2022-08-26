@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using System.Reflection;
 
-namespace Compiler.API.Services.Interfaces;
+namespace Compiler.Application.IServices;
 
 public interface ICompilerService
 {

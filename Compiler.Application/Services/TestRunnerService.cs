@@ -1,8 +1,8 @@
-﻿using Compiler.API.Services.Interfaces;
+﻿using Compiler.Application.IServices;
 using NUnit.Framework;
 using System.Reflection;
 
-namespace Compiler.API.Services;
+namespace Compiler.Application.Services;
 
 public class TestRunnerService : ITestRunnerService
 {
