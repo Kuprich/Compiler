@@ -1,4 +1,5 @@
 using Compiler.Application;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(policy =>
+    policy.WithOrigins("http://localhost:7060", "http://localhost:7060")
+    .AllowAnyMethod()
+    .WithHeaders(HeaderNames.ContentType)
+) ;
 
 app.UseHttpsRedirection();
 

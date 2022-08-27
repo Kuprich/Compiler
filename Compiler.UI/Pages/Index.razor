@@ -1,0 +1,57 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7">
+            <div class="text-editor-wrapper">
+                <div id="main-class-text-edittor" class="text-editor">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-5">
+            <div class="text-editor-wrapper">
+                <div id="test-class-text-edittor" class="text-editor">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col justify-content-end pt-2 pb-2">
+            <button class="btn btn-primary">Run Tests</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="compilation-result">Compilation result</div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+@code {
+    [Inject]
+    private Monaco Monaco { get; set; } = null!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await Monaco.InitializeAsync("main-class-text-edittor", Constants.MainClassText, "csharp");
+            await Monaco.InitializeAsync("test-class-text-edittor", Constants.TestClassText, "csharp");
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+
+    }
+}
