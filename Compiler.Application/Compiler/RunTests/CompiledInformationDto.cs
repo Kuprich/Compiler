@@ -1,6 +1,6 @@
-﻿namespace Compiler.Domain.Compiler;
+﻿namespace Compiler.Application.Compiler.RunTests;
 
-public class CompiledInformation
+public class CompiledInformationDto
 {
     public List<string>? Errors { get; set; }
     public List<string>? TestResult { get; set; }

@@ -1,40 +1,27 @@
 ﻿using Compiler.API.Models;
-using Compiler.Application.IServices;
+using Compiler.Application.Compiler.RunTests;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-
 namespace Compiler.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class CompilerController : ControllerBase
 {
-    private readonly ICompilerService _compilerService;
-    private readonly ITestRunnerService _testRunnerService;
+    private readonly IMediator _mediator;
 
-    public CompilerController(ICompilerService compilerService, ITestRunnerService testRunnerService)
+    public CompilerController(IMediator mediator) => _mediator = mediator;
+
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> RunTests(RunTestCommand query)
     {
-        _compilerService = compilerService;
-        _testRunnerService = testRunnerService;
-    }
+        //TODO: Потом убрать это заполнение данными 
+        query.MainClassText = Constants.MainClassText;
+        query.TestClassText = Constants.TestClassText;
 
-    [HttpGet("[action]")]
-    public IActionResult RunTests()
-    {
+        CompiledInformationDto compiledInformationDto = await _mediator.Send(query);
 
-        CSharpCompilation compilation = _compilerService.CreateCompilationObject(new[] { Constants.MainClassText, Constants.TestClassText });
-
-        List<Diagnostic> CompilationResult = _compilerService.CompileSourceCode(compilation);
-
-        List<string> compilationResult = CompilationResult.Select(d => d.ToString()).ToList();
-
-        if (compilationResult.Any())
-            return Ok(compilationResult);
-
-        List<string> testResult = _testRunnerService.RunAllTestsFromAssembly(_compilerService.Assembly!);
-
-        return Ok(testResult);
-
+        return Ok(compiledInformationDto);
     }
 }

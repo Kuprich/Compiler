@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.Console", "CompilerLesson\Compiler.Console.csproj", "{0CA1E67D-E0F7-486D-BFEF-DBA41C490C3D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.API", "Compiler.API\Compiler.API.csproj", "{9712DA58-1B04-4D36-93BC-FB3F771C8070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler.Application", "Compiler.Application\Compiler.Application.csproj", "{25C4876B-56DB-4420-B720-25128EA53B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.Application", "Compiler.Application\Compiler.Application.csproj", "{25C4876B-56DB-4420-B720-25128EA53B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler.Domain", "Compiler.Domain\Compiler.Domain.csproj", "{F4A481D1-47F4-40A5-814B-E77A92412175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.Domain", "Compiler.Domain\Compiler.Domain.csproj", "{F4A481D1-47F4-40A5-814B-E77A92412175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0CA1E67D-E0F7-486D-BFEF-DBA41C490C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CA1E67D-E0F7-486D-BFEF-DBA41C490C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CA1E67D-E0F7-486D-BFEF-DBA41C490C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CA1E67D-E0F7-486D-BFEF-DBA41C490C3D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9712DA58-1B04-4D36-93BC-FB3F771C8070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9712DA58-1B04-4D36-93BC-FB3F771C8070}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9712DA58-1B04-4D36-93BC-FB3F771C8070}.Release|Any CPU.ActiveCfg = Release|Any CPU
