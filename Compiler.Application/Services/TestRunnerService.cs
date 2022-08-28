@@ -1,4 +1,5 @@
-﻿using Compiler.Application.IServices;
+﻿using Compiler.Application.Compiler;
+using Compiler.Application.IServices;
 using NUnit.Framework;
 using System.Reflection;
 
@@ -6,7 +7,7 @@ namespace Compiler.Application.Services;
 
 public class TestRunnerService : ITestRunnerService
 {
-    public List<string> RunAllTestsFromAssembly(Assembly assembly)
+    public List<TestResult> RunAllTestsFromAssembly(Assembly assembly)
     {
         Type testClass = assembly
             .GetTypes()
@@ -19,7 +20,7 @@ public class TestRunnerService : ITestRunnerService
 
         object? target = Activator.CreateInstance(testClass);
 
-        List<string> result = new();
+        List<TestResult> result = new();
 
         foreach (var methodInfo in testMethodsInfo)
         {
@@ -28,24 +29,29 @@ public class TestRunnerService : ITestRunnerService
 
             Action testMethod = (Action)methodInfo.CreateDelegate(typeof(Action), target);
 
-            bool testResult = RunTest(testMethod);
+            var testResult = RunTest(testMethod);
+            testResult.TestName = methodInfo.Name;
 
-            result.Add(testResult ? $"{methodInfo.Name} - Passed" : $"{methodInfo.Name} - failed");
+            result.Add(testResult);
         }
 
         return result;
     }
 
-    public bool RunTest(Action testMethod)
+    public TestResult RunTest(Action testMethod)
     {
         try
         {
             testMethod();
-            return true;
+            return new TestResult(
+                isPassed: true);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return false;
+            return new TestResult(
+                errorValue: ex.Message);
         }
     }
+
+
 }

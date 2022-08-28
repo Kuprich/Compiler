@@ -29,11 +29,11 @@ public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, Com
                 Errors = compilationResult,
             });
 
-        List<string> testResult = _testRunnerService.RunAllTestsFromAssembly(_compilerService.Assembly!);
+        List<TestResult> testResult = _testRunnerService.RunAllTestsFromAssembly(_compilerService.Assembly!);
 
         return Task.FromResult(new CompiledInformationDto
         {
-            Errors = { },
+            Errors = new List<string>(),
             TestResult = testResult
         });
     }

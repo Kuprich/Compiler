@@ -4,6 +4,7 @@
 @using Compiler.Application.Compiler.RunTests
 
 @inject HttpClient _httpClient
+@inject Monaco _monaco
 
 <PageTitle>Index</PageTitle>
 
@@ -28,18 +29,18 @@
 
     <div class="row">
         <div class="col justify-content-end pt-2 pb-2">
-            <button class="btn btn-primary" @onclick="RunTest">Run Tests</button>
+            <button class="btn btn-primary" @onclick="RunTestAsync">Run Tests</button>
         </div>
     </div>
 
     <div class="row">
         <div class="col">
             <div class="compilation-result">
-                @if(_compiledInformation != null)
+               @if (_compiledInformation != null)
                 {
                     if (_compiledInformation.Errors != null && _compiledInformation.Errors.Any())
                     {
-                        @foreach(var error in _compiledInformation.Errors)
+                        @foreach (var error in _compiledInformation.Errors)
                         {
                             <div>
                                 @error
@@ -48,10 +49,16 @@
                     }
                     if (_compiledInformation.TestResult != null && _compiledInformation.TestResult.Any())
                     {
-                        @foreach(var testResult in _compiledInformation.TestResult!)
+                        @foreach (var testResult in _compiledInformation.TestResult!)
                         {
                             <div>
-                                @testResult
+                                @testResult.TestName - @(testResult.IsPassed ? "Passed" : "Failed")
+
+                                @if (!testResult.IsPassed)
+                                {
+                                    @testResult.ErrorValue;
+                                }
+                                <hr >
                             </div>
                         }
                     }
@@ -67,8 +74,6 @@
 
 
 @code {
-    [Inject]
-    private Monaco Monaco { get; set; } = null!;
 
     private const string _mainClassTextEditorId = "main-class-text-edittor";
     private const string _testClassTextEditorId = "test-class-text-edittor";
@@ -79,23 +84,23 @@
     {
         if (firstRender)
         {
-            await Monaco.InitializeAsync(_mainClassTextEditorId, Constants.MainClassText, "csharp");
-            await Monaco.InitializeAsync(_testClassTextEditorId, Constants.TestClassText, "csharp");
+            await _monaco.InitializeAsync(_mainClassTextEditorId, Constants.MainClassText, "csharp");
+            await _monaco.InitializeAsync(_testClassTextEditorId, Constants.TestClassText, "csharp");
         }
 
         await base.OnAfterRenderAsync(firstRender);
 
     }
 
-    private async Task RunTest()
+    private async Task RunTestAsync()
     {
         _compiledInformation = await SendRunTestAsync();
     }
 
     private async Task<CompiledInformationDto> SendRunTestAsync()
     {
-        string mainClassText = await Monaco.GetCodeAsync(_mainClassTextEditorId);
-        string testClassText = await Monaco.GetCodeAsync(_testClassTextEditorId);
+        string mainClassText = await _monaco.GetCodeAsync(_mainClassTextEditorId);
+        string testClassText = await _monaco.GetCodeAsync(_testClassTextEditorId);
 
         RunAllTestsRequest request = new()
             {
@@ -107,7 +112,6 @@
 
         try
         {
-
             if (response.IsSuccessStatusCode)
             {
 
