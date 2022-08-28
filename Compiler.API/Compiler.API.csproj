@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Compiler.Application\Compiler.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Compiler\" />
+  </ItemGroup>
+
 </Project>

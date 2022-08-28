@@ -42,7 +42,6 @@ public class TestRunnerService : ITestRunnerService
         {
             testMethod();
             return true;
-
         }
         catch (Exception)
         {

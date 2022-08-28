@@ -5,17 +5,17 @@ using Compiler.Application.IServices;
 
 namespace Compiler.Application.Compiler.RunTests;
 
-public class RunTestCommandHandler : IRequestHandler<RunTestCommand, CompiledInformationDto>
+public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, CompiledInformationDto>
 {
     private readonly ICompilerService _compilerService;
     private readonly ITestRunnerService _testRunnerService;
 
-    public RunTestCommandHandler(ICompilerService compilerService, ITestRunnerService testRunnerService)
+    public RunAllTestsCommandHandler(ICompilerService compilerService, ITestRunnerService testRunnerService)
     {
         _compilerService = compilerService;
         _testRunnerService = testRunnerService;
     }
-    public Task<CompiledInformationDto> Handle(RunTestCommand request, CancellationToken cancellationToken)
+    public Task<CompiledInformationDto> Handle(RunAllTestsCommand request, CancellationToken cancellationToken)
     {
         CSharpCompilation compilation = _compilerService.CreateCompilationObject(new[] { request.MainClassText!, request.TestClassText! });
 
