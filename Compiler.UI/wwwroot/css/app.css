@@ -64,7 +64,9 @@ a, .btn-link {
     }
 
 
-.text-editor-wrapper {
+
+
+/*.text-editor-wrapper {
     outline: 1px solid silver;
     padding: 10px;
     display: flex;
@@ -80,4 +82,4 @@ a, .btn-link {
 .compilation-result{
     outline: 1px solid silver;
     height: 20vh;
-}
+}*/

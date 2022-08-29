@@ -10,17 +10,32 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-7">
-            <div class="text-editor-wrapper">
-                <div id="@_mainClassTextEditorId" class="text-editor">
+        <div class="col-6">
+            <div class="task">
+                <div class="task__title">Описание задачи</div>
+                <div class="task__content">
+                    Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст.. Здесь ваш текст.. Здесь ваш текст.." Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию, так что поиск по ключевым словам
                 </div>
             </div>
-
         </div>
 
-        <div class="col-5">
-            <div class="text-editor-wrapper">
-                <div id="@_testClassTextEditorId" class="text-editor">
+        <div class="col-6">
+            <div class="text-editors">
+
+                <div class="text-editor">
+                    <div class="text-editor__title">Solution</div>
+                    <div class="text-editor__content">
+                        <div id="@_mainClassTextEditorId"></div>
+                    </div>
+
+                </div>
+
+                <div class="text-editor">
+                    <div class="text-editor__title">Sample Tests</div>
+                    <div class="text-editor__content">
+                        <div id="@_testClassTextEditorId"></div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -36,7 +51,7 @@
     <div class="row">
         <div class="col">
             <div class="compilation-result">
-               @if (_compiledInformation != null)
+                @if (_compiledInformation != null)
                 {
                     if (_compiledInformation.Errors != null && _compiledInformation.Errors.Any())
                     {
@@ -58,7 +73,7 @@
                                 {
                                     @testResult.ErrorValue;
                                 }
-                                <hr >
+                                <hr>
                             </div>
                         }
                     }
@@ -114,7 +129,6 @@
         {
             if (response.IsSuccessStatusCode)
             {
-
                 return await response.Content.ReadFromJsonAsync<CompiledInformationDto>() ?? new CompiledInformationDto();
             }
             else

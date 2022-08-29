@@ -1,6 +1,6 @@
 ﻿namespace Compiler.Application.Compiler;
 
-public struct TestResult
+public class TestResult
 {
     public string? TestName { get; set; } = null!;
     public bool IsPassed { get; set; } = false;
@@ -16,4 +16,6 @@ public struct TestResult
         IsPassed = false;
         ErrorValue = errorValue;
     }
+
+    public TestResult() { }
 }
