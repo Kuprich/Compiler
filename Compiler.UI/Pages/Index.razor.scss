@@ -1,0 +1,49 @@
+﻿.text-editors {
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid silver;
+}
+
+.text-editors {
+    .text-editor {
+        height: 30vh;
+    }
+}
+
+
+.text-editor {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        background-color: silver;
+        margin: -10px -10px 10px;
+    }
+
+    &__content {
+        height: 100%;
+    }
+}
+
+
+.text-editor__content .monaco-editor {
+    height: 100%;
+}
+
+.compilation-result {
+    outline: 1px solid silver;
+    height: 20vh;
+}
+
+.practice {
+    outline: 1px solid silver;
+    padding: 10px;
+    height: 100%;
+
+    &__heading {
+        background-color: silver;
+        margin: -10px -10px 10px;
+    }
+}
+
