@@ -1,0 +1,18 @@
+﻿
+<div class="text-editor">
+    <div class="text-editor__title">@Title</div>
+    <div class="text-editor__content">
+        <div id="@Id" class="monaco-editor" style="height: @Height"></div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = "Code Editor";
+
+    [Parameter]
+    public string Id { get; set; } = null!;
+
+    [Parameter]
+    public string Height { get; set; } = "30vh";
+}

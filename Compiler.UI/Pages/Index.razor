@@ -1,7 +1,5 @@
 ﻿@page "/"
-@using Compiler.API.Compiler
-@using System.Net
-@using Compiler.Application.Compiler.RunTests
+
 
 @inject HttpClient _httpClient
 @inject Monaco _monaco
@@ -22,21 +20,9 @@
         <div class="col-6">
             <div class="text-editors">
 
-                <div class="text-editor">
-                    <div class="text-editor__title">Solution</div>
-                    <div class="text-editor__content">
-                        <div id="@_mainClassTextEditorId" class="monaco-editor"></div>
-                    </div>
+                <MonacoEditor Id="@_mainClassTextEditorId" Title="Solution" Height="30vh" />
+                <MonacoEditor Id="@_testClassTextEditorId" Title="Some tests" Height="30vh"/>
 
-                </div>
-
-                <div class="text-editor">
-                    <div class="text-editor__title">Sample Tests</div>
-                    <div class="text-editor__content">
-                        <div id="@_testClassTextEditorId" class="monaco-editor"></div>
-                    </div>
-
-                </div>
             </div>
         </div>
 
@@ -50,35 +36,9 @@
 
     <div class="row">
         <div class="col">
-            <div class="compilation-result">
-                @if (_compiledInformation != null)
-                {
-                    if (_compiledInformation.Errors != null && _compiledInformation.Errors.Any())
-                    {
-                        @foreach (var error in _compiledInformation.Errors)
-                        {
-                            <div>
-                                @error
-                            </div>
-                        }
-                    }
-                    if (_compiledInformation.TestResult != null && _compiledInformation.TestResult.Any())
-                    {
-                        @foreach (var testResult in _compiledInformation.TestResult!)
-                        {
-                            <div>
-                                @testResult.TestName - @(testResult.IsPassed ? "Passed" : "Failed")
 
-                                @if (!testResult.IsPassed)
-                                {
-                                    @testResult.ErrorValue;
-                                }
-                                <hr>
-                            </div>
-                        }
-                    }
-                }
-            </div>
+            <CompilationResult CompiledInformation="_compiledInformation"/>
+        
         </div>
     </div>
 

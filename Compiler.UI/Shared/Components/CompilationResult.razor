@@ -1,0 +1,36 @@
+﻿<div class="compilation-result">
+
+    @if (CompiledInformation != null)
+    {
+        if (CompiledInformation.Errors != null && CompiledInformation.Errors.Any())
+        {
+            @foreach (var error in CompiledInformation.Errors)
+            {
+                <div>
+                    @error
+                </div>
+            }
+        }
+        if (CompiledInformation.TestResult != null && CompiledInformation.TestResult.Any())
+        {
+            @foreach (var testResult in CompiledInformation.TestResult!)
+            {
+                <div>
+                    @testResult.TestName - @(testResult.IsPassed ? "Passed" : "Failed")
+
+                    @if (!testResult.IsPassed)
+                    {
+                        @testResult.ErrorValue
+                    }
+                    <hr>
+                </div>
+            }
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public CompiledInformationDto CompiledInformation { get; set; } = null!;
+
+}

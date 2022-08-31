@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.Domain", "Compiler
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.UI", "Compiler.UI\Compiler.UI.csproj", "{0205822F-D677-48DB-AE2A-6FD1910E2FF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Compiler.Persistence", "Compiler.Persistence\Compiler.Persistence.csproj", "{916043BB-8BB0-466E-8A6F-0F33404F75E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Compiler.Persistence", "Compiler.Persistence\Compiler.Persistence.csproj", "{916043BB-8BB0-466E-8A6F-0F33404F75E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

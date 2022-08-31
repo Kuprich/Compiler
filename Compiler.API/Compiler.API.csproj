@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
     <PackageReference Include="NUnit.Engine" Version="3.15.2" />
@@ -18,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Compiler.Application\Compiler.Application.csproj" />
+    <ProjectReference Include="..\Compiler.Persistence\Compiler.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
 using Compiler.Application;
+using Compiler.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +12,28 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddApplication();
+    builder.Services.AddPersistence(builder.Configuration);
+
 }
 
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var context = scope.ServiceProvider.GetRequiredService<PracticeDbContext>();
+        await context.Database.MigrateAsync();
+    }
+
+    catch
+    {
+        throw;
+    }
+   
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

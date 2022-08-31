@@ -1,0 +1,1 @@
+.text-editor{margin:10px;display:flex;flex-direction:column}.text-editor__title{background-color:silver;margin:-10px -10px 10px}.text-editor__content{height:100%}.text-editor__content .monaco-editor{height:100%}.text-editor .compilation-result{outline:1px solid silver;height:20vh}.text-editor .compilation-result{outline:1px solid silver;height:20vh}

@@ -1,0 +1,29 @@
+﻿.text-editor {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        background-color: silver;
+        margin: -10px -10px 10px;
+    }
+
+    &__content {
+        height: 100%;
+
+        .monaco-editor {
+            height: 100%;
+        }
+    }
+
+    .compilation-result {
+        outline: 1px solid silver;
+        height: 20vh;
+    }
+
+    .compilation-result {
+        outline: 1px solid silver;
+        height: 20vh;
+    }
+}
+
