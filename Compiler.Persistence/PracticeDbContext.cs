@@ -6,7 +6,7 @@ namespace Compiler.Persistence;
 
 public class PracticeDbContext : DbContext
 {
-    public DbSet<Practice> Practices => Set<Practice>();
+    public DbSet<PracticeCard> PracticeCards => Set<PracticeCard>();
 
     public PracticeDbContext(DbContextOptions<PracticeDbContext> options) : base(options)
     { }

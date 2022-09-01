@@ -2,7 +2,7 @@
 
 namespace Compiler.Domain.Entities;
 
-public class Practice : EntityBase
+public class PracticeCard : EntityBase
 {
     public string? Heading { get; set; }
     public string? Description { get; set; }

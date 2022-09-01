@@ -14,6 +14,8 @@ public static class DependencyInjection
             opt.UseSqlite(connectionString);
         });
 
+        services.AddScoped<IPracticeRepository, PracticeRepository>();
+
         return services;
     }
 }

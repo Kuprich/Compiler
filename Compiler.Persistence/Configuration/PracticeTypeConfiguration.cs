@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Compiler.Persistence.Configuration;
 
-internal class PracticeTypeConfiguration : IEntityTypeConfiguration<Practice>
+internal class PracticeTypeConfiguration : IEntityTypeConfiguration<PracticeCard>
 {
-    public void Configure(EntityTypeBuilder<Practice> builder)
+    public void Configure(EntityTypeBuilder<PracticeCard> builder)
     {
         builder.OwnsOne(x => x.ProjectData);
     }

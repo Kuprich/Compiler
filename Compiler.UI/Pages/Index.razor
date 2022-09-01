@@ -1,12 +1,23 @@
 ﻿@page "/"
 
 
+
+
 @inject HttpClient _httpClient
 @inject Monaco _monaco
 
 <PageTitle>Index</PageTitle>
 
 <div class="container-fluid">
+    <div class="row">
+        <select>
+            <option selected disabled>Выберите задачу:</option>
+           @* @foreach (var practiceCard in PracticeCards)
+           {
+               <option>@practiceCard.Heading</option>
+           }*@
+        </select>
+    </div>
     <div class="row">
         <div class="col-6">
             <div class="practice">
@@ -38,7 +49,7 @@
         <div class="col">
 
             <CompilationResult CompiledInformation="_compiledInformation"/>
-        
+       
         </div>
     </div>
 
@@ -54,6 +65,15 @@
     private const string _testClassTextEditorId = "test-class-text-edittor";
 
     private CompiledInformationDto? _compiledInformation;
+    public List<PracticeCard>? PracticeCards;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        //await _practiceRepository.GetAllPracticeCardsAsync();
+
+        await base.OnInitializedAsync();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -72,6 +92,7 @@
         _compiledInformation = await SendRunTestAsync();
     }
 
+    //TODO: Создать какой-нибудь простой Sender для запросов
     private async Task<CompiledInformationDto> SendRunTestAsync()
     {
         string mainClassText = await _monaco.GetCodeAsync(_mainClassTextEditorId);

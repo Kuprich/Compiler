@@ -1,6 +1,5 @@
 using Compiler.Application;
 using Compiler.Persistence;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddSwaggerGen();
     builder.Services.AddApplication();
     builder.Services.AddPersistence(builder.Configuration);
-
 }
 
 
@@ -25,14 +23,14 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = scope.ServiceProvider.GetRequiredService<PracticeDbContext>();
-        await context.Database.MigrateAsync();
+        await PracticeDbInitializer.InitializeAsync(context);
     }
 
     catch
     {
         throw;
     }
-   
+
 }
 
 // Configure the HTTP request pipeline.
@@ -46,7 +44,7 @@ app.UseCors(policy =>
     policy.WithOrigins("https://localhost:7060", "http://localhost:5060")
     .AllowAnyMethod()
     .WithHeaders(HeaderNames.ContentType)
-) ;
+);
 
 app.UseHttpsRedirection();
 
