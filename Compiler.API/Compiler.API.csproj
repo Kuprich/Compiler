@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Compiler.Persistence\Compiler.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Compiler\" />
-  </ItemGroup>
-
 </Project>

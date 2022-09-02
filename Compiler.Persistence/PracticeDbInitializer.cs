@@ -24,8 +24,11 @@ public class PracticeDbInitializer
 
     public static async Task InitializeAsync(PracticeDbContext dbContext)
     {
+        await dbContext.Database.EnsureDeletedAsync();
         await dbContext.Database.EnsureCreatedAsync();
 
         await dbContext.PracticeCards.AddRangeAsync(GetSomePractices());
+
+        await dbContext.SaveChangesAsync();
     }
 }

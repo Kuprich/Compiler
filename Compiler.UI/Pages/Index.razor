@@ -2,7 +2,6 @@
 
 
 
-
 @inject HttpClient _httpClient
 @inject Monaco _monaco
 
@@ -12,10 +11,15 @@
     <div class="row">
         <select>
             <option selected disabled>Выберите задачу:</option>
-           @* @foreach (var practiceCard in PracticeCards)
-           {
-               <option>@practiceCard.Heading</option>
-           }*@
+
+            @if (_practiceHeadings != null)
+            {
+                @foreach (var practiceHeading in _practiceHeadings)
+                {
+                    <option>@practiceHeading.Heading</option>
+                }
+            }
+
         </select>
     </div>
     <div class="row">
@@ -32,7 +36,7 @@
             <div class="text-editors">
 
                 <MonacoEditor Id="@_mainClassTextEditorId" Title="Solution" Height="30vh" />
-                <MonacoEditor Id="@_testClassTextEditorId" Title="Some tests" Height="30vh"/>
+                <MonacoEditor Id="@_testClassTextEditorId" Title="Some tests" Height="30vh" />
 
             </div>
         </div>
@@ -48,8 +52,8 @@
     <div class="row">
         <div class="col">
 
-            <CompilationResult CompiledInformation="_compiledInformation"/>
-       
+            <CompilationResult CompiledInformation="_compiledInformation" />
+
         </div>
     </div>
 
@@ -65,12 +69,13 @@
     private const string _testClassTextEditorId = "test-class-text-edittor";
 
     private CompiledInformationDto? _compiledInformation;
-    public List<PracticeCard>? PracticeCards;
+    private List<PracticeHeadingDto>? _practiceHeadings;
 
 
     protected override async Task OnInitializedAsync()
     {
-        //await _practiceRepository.GetAllPracticeCardsAsync();
+
+        _practiceHeadings = await SendGetPracticeHeadingsAsync();
 
         await base.OnInitializedAsync();
     }
@@ -111,6 +116,29 @@
             if (response.IsSuccessStatusCode)
             {
                 return await response.Content.ReadFromJsonAsync<CompiledInformationDto>() ?? new CompiledInformationDto();
+            }
+            else
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
+            }
+        }
+
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    private async Task<List<PracticeHeadingDto>> SendGetPracticeHeadingsAsync()
+    {
+        var response = await _httpClient.GetAsync("api/Practice/GetAllPracticeHeadings");
+
+        try
+        {
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<PracticeHeadingDto>>() ?? new List<PracticeHeadingDto>();
             }
             else
             {
