@@ -1,8 +1,5 @@
 ﻿@page "/"
 
-
-
-
 @inject HttpClient _httpClient
 @inject Monaco _monaco
 @inject Sender _sender
@@ -37,8 +34,8 @@
         <div class="col-6">
             <div class="text-editors">
 
-                <MonacoEditor Id="@_mainClassTextEditorId" Title="Solution" Height="30vh" />
-                <MonacoEditor Id="@_testClassTextEditorId" Title="Some tests" Height="30vh" />
+                <MonacoEditor Id="@MainClassTextEditorId" Title="Solution" Height="30vh" />
+                <MonacoEditor Id="@TestClassTextEditorId" Title="Some tests" Height="30vh" />
 
             </div>
         </div>
@@ -67,8 +64,11 @@
 
 @code {
 
-    private const string _mainClassTextEditorId = "main-class-text-edittor";
-    private const string _testClassTextEditorId = "test-class-text-edittor";
+    private const string MainClassTextEditorId = "main-class-text-edittor";
+    private const string TestClassTextEditorId = "test-class-text-edittor";
+
+    private const string GetAllPracticeHeadingsUri = "api/Practice/GetAllPracticeHeadings";
+    private const string RunAllTestsUri = "api/Compiler/RunAllTests";
 
     private CompiledInformationDto? _compiledInformation;
     private List<PracticeHeadingDto>? _practiceHeadings;
@@ -76,9 +76,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        string requestUri = "api/Practice/GetAllPracticeHeadings";
-
-        _practiceHeadings = await _sender.SendGetAsync<List<PracticeHeadingDto>>(requestUri);
+        _practiceHeadings = await _sender.SendGetAsync<List<PracticeHeadingDto>>(GetAllPracticeHeadingsUri);
 
         await base.OnInitializedAsync();
     }
@@ -87,8 +85,8 @@
     {
         if (firstRender)
         {
-            await _monaco.InitializeAsync(_mainClassTextEditorId, Constants.MainClassText, "csharp");
-            await _monaco.InitializeAsync(_testClassTextEditorId, Constants.TestClassText, "csharp");
+            await _monaco.InitializeAsync(MainClassTextEditorId, Constants.MainClassText, "csharp");
+            await _monaco.InitializeAsync(TestClassTextEditorId, Constants.TestClassText, "csharp");
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -97,8 +95,8 @@
 
     private async Task RunTestAsync()
     {
-        string mainClassText = await _monaco.GetCodeAsync(_mainClassTextEditorId);
-        string testClassText = await _monaco.GetCodeAsync(_testClassTextEditorId);
+        string mainClassText = await _monaco.GetCodeAsync(MainClassTextEditorId);
+        string testClassText = await _monaco.GetCodeAsync(TestClassTextEditorId);
 
         RunAllTestsRequest request = new()
             {
@@ -106,9 +104,7 @@
                 TestClassText = testClassText
             };
 
-        string requestUri = "api/Compiler/RunAllTests";
-
-        _compiledInformation = await _sender.SendPostAsJsonAsync<CompiledInformationDto>(requestUri, request);
+        _compiledInformation = await _sender.SendPostAsJsonAsync<CompiledInformationDto>(RunAllTestsUri, request);
     }
  
 }
