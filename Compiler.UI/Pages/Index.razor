@@ -2,8 +2,10 @@
 
 
 
+
 @inject HttpClient _httpClient
 @inject Monaco _monaco
+@inject Sender _sender
 
 <PageTitle>Index</PageTitle>
 
@@ -74,8 +76,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+        string requestUri = "api/Practice/GetAllPracticeHeadings";
 
-        _practiceHeadings = await SendGetPracticeHeadingsAsync();
+        _practiceHeadings = await _sender.SendGetAsync<List<PracticeHeadingDto>>(requestUri);
 
         await base.OnInitializedAsync();
     }
@@ -94,12 +97,6 @@
 
     private async Task RunTestAsync()
     {
-        _compiledInformation = await SendRunTestAsync();
-    }
-
-    //TODO: Создать какой-нибудь простой Sender для запросов
-    private async Task<CompiledInformationDto> SendRunTestAsync()
-    {
         string mainClassText = await _monaco.GetCodeAsync(_mainClassTextEditorId);
         string testClassText = await _monaco.GetCodeAsync(_testClassTextEditorId);
 
@@ -109,48 +106,9 @@
                 TestClassText = testClassText
             };
 
-        var response = await _httpClient.PostAsJsonAsync("api/Compiler/RunAllTests", request);
+        string requestUri = "api/Compiler/RunAllTests";
 
-        try
-        {
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<CompiledInformationDto>() ?? new CompiledInformationDto();
-            }
-            else
-            {
-                var message = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
-            }
-        }
-
-        catch (Exception)
-        {
-            throw;
-        }
+        _compiledInformation = await _sender.SendPostAsJsonAsync<CompiledInformationDto>(requestUri, request);
     }
-
-    private async Task<List<PracticeHeadingDto>> SendGetPracticeHeadingsAsync()
-    {
-        var response = await _httpClient.GetAsync("api/Practice/GetAllPracticeHeadings");
-
-        try
-        {
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<List<PracticeHeadingDto>>() ?? new List<PracticeHeadingDto>();
-            }
-            else
-            {
-                var message = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Http status code: {response.StatusCode} Message: {message}");
-            }
-        }
-
-        catch (Exception)
-        {
-            throw;
-        }
-
-    }
+ 
 }

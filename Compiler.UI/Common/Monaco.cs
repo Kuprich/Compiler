@@ -1,8 +1,8 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Compiler.UI;
+namespace Compiler.UI.Common;
 
-public class Monaco
+internal class Monaco
 {
     private readonly IJSRuntime _jsRuntime;
 
