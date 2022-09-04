@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Compiler.Persistence.Configuration;
+namespace Compiler.Infrastructure.Configuration;
 
 internal class PracticeTypeConfiguration : IEntityTypeConfiguration<PracticeCard>
 {

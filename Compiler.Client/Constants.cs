@@ -1,8 +1,8 @@
-﻿namespace Compiler.UI;
+﻿namespace Compiler.Client;
 
 public static class Constants
 {
-    public const string MainClassText = 
+    public const string MainClassText =
 @"using System;
 
 public class NumberGenerator
@@ -13,7 +13,7 @@ public class NumberGenerator
     }
 }";
 
-    public const string TestClassText = 
+    public const string TestClassText =
 
 @"using System;
 using NUnit.Framework;

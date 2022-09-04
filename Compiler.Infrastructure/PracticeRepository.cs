@@ -2,9 +2,10 @@
 using Compiler.Application.Practice.GetAllPracticeHeadings;
 using Compiler.Application.Practice.GetPracticeCard;
 using Compiler.Domain.Entities;
+using Compiler.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Compiler.Persistence;
+namespace Compiler.Infrastructure;
 
 public class PracticeRepository : IPracticeRepository
 {
@@ -34,7 +35,7 @@ public class PracticeRepository : IPracticeRepository
             .FirstOrDefaultAsync(practiceCard => practiceCard.Id == practiceCardId);
 
         if (practiceCard == null) return null;
-       
+
         PracticeCardDto result = new()
         {
             Id = practiceCard.Id,

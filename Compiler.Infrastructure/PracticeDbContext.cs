@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Compiler.Persistence;
+namespace Compiler.Infrastructure;
 
 public class PracticeDbContext : DbContext
 {

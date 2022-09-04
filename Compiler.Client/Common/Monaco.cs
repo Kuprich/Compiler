@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace Compiler.UI.Common;
+namespace Compiler.Client.Common;
 
 internal class Monaco
 {

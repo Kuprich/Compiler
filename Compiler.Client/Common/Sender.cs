@@ -1,9 +1,6 @@
-﻿using Compiler.Application.Compiler.RunTests;
-using MediatR;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 
-namespace Compiler.UI.Common;
+namespace Compiler.Client.Common;
 
 internal class Sender
 {
@@ -13,7 +10,7 @@ internal class Sender
     {
         _httpClient = httpClient;
     }
-        
+
     public async Task<TResult?> SendPostAsJsonAsync<TResult>(string requestUri, object request)
     {
         var response = await _httpClient.PostAsJsonAsync(requestUri, request);

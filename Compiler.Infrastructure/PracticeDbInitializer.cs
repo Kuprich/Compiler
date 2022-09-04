@@ -1,7 +1,7 @@
 ﻿using Compiler.Domain.Entities;
 using Compiler.Domain.Entities.ValueObjects;
 
-namespace Compiler.Persistence;
+namespace Compiler.Infrastructure;
 
 public class PracticeDbInitializer
 {

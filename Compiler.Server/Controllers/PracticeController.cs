@@ -3,7 +3,7 @@ using Compiler.Application.Practice.GetPracticeCard;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Compiler.API.Controllers
+namespace Compiler.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

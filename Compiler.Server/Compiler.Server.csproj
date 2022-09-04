@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.8" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
       <PrivateAssets>all</PrivateAssets>
@@ -22,7 +23,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Compiler.Application\Compiler.Application.csproj" />
-    <ProjectReference Include="..\Compiler.Persistence\Compiler.Persistence.csproj" />
+    <ProjectReference Include="..\Compiler.Client\Compiler.Client.csproj" />
+    <ProjectReference Include="..\Compiler.Infrastructure\Compiler.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
