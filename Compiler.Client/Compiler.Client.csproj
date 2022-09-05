@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Compiler.Application\Compiler.Application.csproj" />
+    <ProjectReference Include="..\Compiler.Client.Infrastructure\Compiler.Client.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

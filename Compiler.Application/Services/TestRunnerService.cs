@@ -1,4 +1,4 @@
-﻿using Compiler.Application.Compiler;
+﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using Compiler.Application.IServices;
 using NUnit.Framework;
 using System.Reflection;

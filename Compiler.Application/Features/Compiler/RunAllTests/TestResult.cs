@@ -1,4 +1,4 @@
-﻿namespace Compiler.Application.Compiler;
+﻿namespace Compiler.Application.Features.Compiler.RunAllTests;
 
 public class TestResult
 {

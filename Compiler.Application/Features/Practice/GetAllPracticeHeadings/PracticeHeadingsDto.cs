@@ -1,4 +1,4 @@
-﻿namespace Compiler.Application.Practice.GetAllPracticeHeadings;
+﻿namespace Compiler.Application.Features.Practice.GetAllPracticeHeadings;
 
 public class PracticeHeadingDto
 {

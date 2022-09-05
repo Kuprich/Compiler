@@ -1,5 +1,4 @@
-﻿using Compiler.API.Compiler;
-using Compiler.Application.Compiler.RunTests;
+﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 namespace Compiler.Server.Controllers;
@@ -14,14 +13,8 @@ public class CompilerController : ControllerBase
 
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> RunAllTests([FromBody] RunAllTestsRequest request)
+    public async Task<IActionResult> RunAllTests([FromBody] RunAllTestsCommand command)
     {
-        var command = new RunAllTestsCommand()
-        {
-            MainClassText = request.MainClassText,
-            TestClassText = request.TestClassText
-        };
-
         var compiledInformationDto = await _mediator.Send(command);
 
         return Ok(compiledInformationDto);

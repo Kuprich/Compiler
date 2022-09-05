@@ -3,7 +3,7 @@ using Compiler.Domain.Entities.ValueObjects;
 using Compiler.Persistence;
 using MediatR;
 
-namespace Compiler.Application.Practice.GetPracticeCard;
+namespace Compiler.Application.Features.Practice.GetPracticeCard;
 
 public class PracticeCardDto
 {

@@ -1,4 +1,4 @@
-﻿using Compiler.Application.Compiler;
+﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using System.Reflection;
 
 namespace Compiler.Application.IServices;

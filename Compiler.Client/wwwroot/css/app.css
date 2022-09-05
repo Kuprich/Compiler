@@ -62,24 +62,3 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
-
-
-
-
-/*.text-editor-wrapper {
-    outline: 1px solid silver;
-    padding: 10px;
-    display: flex;
-    height: 65vh;
-    align-items: stretch;
-    align-self: stretch;
-}
-
-    .text-editor-wrapper .text-editor {
-        width: 100%;
-    }
-
-.compilation-result{
-    outline: 1px solid silver;
-    height: 20vh;
-}*/

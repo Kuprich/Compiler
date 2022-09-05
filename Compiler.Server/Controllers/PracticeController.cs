@@ -1,5 +1,5 @@
-﻿using Compiler.Application.Practice.GetAllPractices;
-using Compiler.Application.Practice.GetPracticeCard;
+﻿using Compiler.Application.Features.Practice.GetAllPracticeHeadings;
+using Compiler.Application.Features.Practice.GetPracticeCard;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,5 @@
-﻿<div class="compilation-result">
+﻿@using Compiler.Application.Features.Compiler.RunAllTests
+<div class="compilation-result">
 
     @if (CompiledInformation != null)
     {
@@ -31,6 +32,6 @@
 
 @code {
     [Parameter]
-    public CompiledInformationDto CompiledInformation { get; set; } = null!;
+    public CompiledInformationResponse CompiledInformation { get; set; } = null!;
 
 }

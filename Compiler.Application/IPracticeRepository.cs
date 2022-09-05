@@ -1,5 +1,5 @@
-﻿using Compiler.Application.Practice.GetAllPracticeHeadings;
-using Compiler.Application.Practice.GetPracticeCard;
+﻿using Compiler.Application.Features.Practice.GetAllPracticeHeadings;
+using Compiler.Application.Features.Practice.GetPracticeCard;
 
 namespace Compiler.Persistence;
 

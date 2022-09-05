@@ -1,8 +1,7 @@
-﻿using Compiler.Application.Practice.GetAllPracticeHeadings;
-using Compiler.Persistence;
+﻿using Compiler.Persistence;
 using MediatR;
 
-namespace Compiler.Application.Practice.GetAllPractices;
+namespace Compiler.Application.Features.Practice.GetAllPracticeHeadings;
 
 public class GetAllPracticeHeadingsQueryHandler : IRequestHandler<GetAllPracticeHeadingsQuery, List<PracticeHeadingDto>>
 {

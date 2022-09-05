@@ -44,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseWebAssemblyDebugging();
 }
 
+app.UseCors();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -51,6 +53,7 @@ app.UseAuthorization();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
+app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 

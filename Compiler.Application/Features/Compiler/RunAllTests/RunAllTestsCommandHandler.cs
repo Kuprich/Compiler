@@ -2,10 +2,11 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis;
 using Compiler.Application.IServices;
+using Compiler.Application.Features.Compiler.RunAllTests;
 
 namespace Compiler.Application.Compiler.RunTests;
 
-public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, CompiledInformationDto>
+public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, CompiledInformationResponse>
 {
     private readonly ICompilerService _compilerService;
     private readonly ITestRunnerService _testRunnerService;
@@ -15,7 +16,7 @@ public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, Com
         _compilerService = compilerService;
         _testRunnerService = testRunnerService;
     }
-    public Task<CompiledInformationDto> Handle(RunAllTestsCommand request, CancellationToken cancellationToken)
+    public Task<CompiledInformationResponse> Handle(RunAllTestsCommand request, CancellationToken cancellationToken)
     {
         CSharpCompilation compilation = _compilerService.CreateCompilationObject(new[] { request.MainClassText!, request.TestClassText! });
 
@@ -24,14 +25,14 @@ public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, Com
         List<string> compilationResult = CompilationResult.Select(d => d.ToString()).ToList();
 
         if (compilationResult.Any())
-            return Task.FromResult(new CompiledInformationDto
+            return Task.FromResult(new CompiledInformationResponse
             {
                 Errors = compilationResult,
             });
 
         List<TestResult> testResult = _testRunnerService.RunAllTestsFromAssembly(_compilerService.Assembly!);
 
-        return Task.FromResult(new CompiledInformationDto
+        return Task.FromResult(new CompiledInformationResponse
         {
             Errors = new List<string>(),
             TestResult = testResult
