@@ -1,5 +1,6 @@
 using Compiler.Client;
 using Compiler.Client.Common;
+using Compiler.Client.Infrastructure;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -12,5 +13,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddScoped<Monaco>();
 builder.Services.AddTransient<Sender>();
+builder.Services.AddClientInfrastructure();
 
 await builder.Build().RunAsync();

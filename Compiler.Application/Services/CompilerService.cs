@@ -1,4 +1,4 @@
-﻿using Compiler.Application.IServices;
+﻿using Compiler.Application.Services.Interfaces;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
@@ -36,9 +36,9 @@ public class CompilerService : ICompilerService
         return compilation;
     }
 
-    public List<Diagnostic> CompileSourceCode(CSharpCompilation compilation)
+    public List<string> CompileSourceCode(CSharpCompilation compilation)
     {
-        List<Diagnostic> result = new();
+        List<string> result = new();
 
         using (var memoryStream = new MemoryStream())
         {
@@ -50,7 +50,7 @@ public class CompilerService : ICompilerService
                 diagnostic.IsWarningAsError ||
                 diagnostic.Severity == DiagnosticSeverity.Error);
 
-                result.AddRange(failures);
+                result.AddRange(failures.Select(failure => failure.ToString()).ToList());
             }
 
             else

@@ -1,11 +1,11 @@
 ﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
+
 namespace Compiler.Server.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CompilerController : ControllerBase
+public class CompilerController : ApiController
 {
     private readonly IMediator _mediator;
 
@@ -15,8 +15,10 @@ public class CompilerController : ControllerBase
     [HttpPost("[action]")]
     public async Task<IActionResult> RunAllTests([FromBody] RunAllTestsCommand command)
     {
-        var compiledInformationDto = await _mediator.Send(command);
+        var compiledInformationResult = await _mediator.Send(command);
 
-        return Ok(compiledInformationDto);
+        return compiledInformationResult.Match(
+               compiledInformation => Ok(new CompiledInformationDto() { Errors = compiledInformationResult.Value.Errors, TestResult = compiledInformationResult.Value.TestResult}),
+               errors => Problem(errors));
     }
 }

@@ -1,7 +1,15 @@
 ﻿namespace Compiler.Application.Features.Practice.GetAllPracticeHeadings;
 
-public class PracticeHeadingDto
+public class PracticeHeadingsDto
 {
-    public Guid Id { get; set; }
-    public string? Heading { get; set; }
+   public List<PracticeHeading>? Headings { get; set; }
+
+    public class PracticeHeading
+    {
+        public Guid Id { get; set; }
+        public string? Heading { get; set; }
+    }
 }
+
+
+

@@ -1,5 +1,5 @@
 ﻿using Compiler.Application.Features.Compiler.RunAllTests;
-using Compiler.Application.IServices;
+using Compiler.Application.Services.Interfaces;
 using NUnit.Framework;
 using System.Reflection;
 

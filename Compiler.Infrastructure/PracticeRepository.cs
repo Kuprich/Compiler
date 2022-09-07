@@ -1,9 +1,9 @@
-﻿using Compiler.Application.Exceptions;
-using Compiler.Application.Features.Practice.GetAllPracticeHeadings;
+﻿using Compiler.Application.Features.Practice.GetAllPracticeHeadings;
 using Compiler.Application.Features.Practice.GetPracticeCard;
 using Compiler.Domain.Entities;
 using Compiler.Persistence;
 using Microsoft.EntityFrameworkCore;
+using static Compiler.Application.Features.Practice.GetAllPracticeHeadings.PracticeHeadingsDto;
 
 namespace Compiler.Infrastructure;
 
@@ -16,15 +16,20 @@ public class PracticeRepository : IPracticeRepository
         _practiceDbContext = practiceDbContext;
     }
 
-    public async Task<List<PracticeHeadingDto>> GetAllPracticeHeadingsAsync()
+    public async Task<PracticeHeadingsDto> GetPracticeHeadingsAsync()
     {
-        return await _practiceDbContext.PracticeCards
-            .Select(practiceCard => new PracticeHeadingDto
+        List<PracticeHeading> headings = await _practiceDbContext.PracticeCards
+            .Select(practiceCard => new PracticeHeading
             {
                 Id = practiceCard.Id,
-                Heading = practiceCard.Heading
+                Heading = practiceCard.Heading,
             })
             .ToListAsync();
+
+        return new PracticeHeadingsDto
+        {
+            Headings = headings
+        };
     }
 
 

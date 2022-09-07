@@ -1,7 +1,7 @@
 ﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using System.Reflection;
 
-namespace Compiler.Application.IServices;
+namespace Compiler.Application.Services.Interfaces;
 
 public interface ITestRunnerService
 {

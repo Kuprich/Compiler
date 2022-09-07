@@ -2,11 +2,11 @@
 using Microsoft.CodeAnalysis.CSharp;
 using System.Reflection;
 
-namespace Compiler.Application.IServices;
+namespace Compiler.Application.Services.Interfaces;
 
 public interface ICompilerService
 {
     Assembly? Assembly { get; }
-    List<Diagnostic> CompileSourceCode(CSharpCompilation compilation);
+    List<string> CompileSourceCode(CSharpCompilation compilation);
     CSharpCompilation CreateCompilationObject(string[] textFiles);
 }

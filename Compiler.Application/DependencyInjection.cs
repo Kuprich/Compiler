@@ -1,5 +1,5 @@
-﻿using Compiler.Application.IServices;
-using Compiler.Application.Services;
+﻿using Compiler.Application.Services;
+using Compiler.Application.Services.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

@@ -1,8 +1,8 @@
 ﻿@page "/"
 
-@inject HttpClient _httpClient
 @inject Monaco _monaco
 @inject Sender _sender
+@inject CompilerManager _compilerManager
 
 <PageTitle>Index</PageTitle>
 
@@ -67,9 +67,6 @@
     private const string MainClassTextEditorId = "main-class-text-edittor";
     private const string TestClassTextEditorId = "test-class-text-edittor";
 
-    //private const string GetAllPracticeHeadingsUri = "api/Practice/GetAllPracticeHeadings";
-    //private const string RunAllTestsUri = "api/Compiler/RunAllTests";
-
     //private CompiledInformationDto? _compiledInformation;
     //private List<PracticeHeadingDto>? _practiceHeadings;
 
@@ -95,14 +92,16 @@
 
     private async Task RunTestAsync()
     {
-        //string mainClassText = await _monaco.GetCodeAsync(MainClassTextEditorId);
-        //string testClassText = await _monaco.GetCodeAsync(TestClassTextEditorId);
+        string mainClassText = await _monaco.GetCodeAsync(MainClassTextEditorId);
+        string testClassText = await _monaco.GetCodeAsync(TestClassTextEditorId);
 
-        //RunAllTestsRequest request = new()
-        //    {
-        //        MainClassText = mainClassText,
-        //        TestClassText = testClassText
-        //    };
+        RunAllTestsCommand command = new()
+            {
+                MainClassText = mainClassText,
+                TestClassText = testClassText
+            };
+
+        var result = await _compilerManager.RunAllTests(command);
 
         //_compiledInformation = await _sender.SendPostAsJsonAsync<CompiledInformationDto>(RunAllTestsUri, request);
     }

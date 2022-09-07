@@ -2,7 +2,7 @@
 {
     public interface IResult
     {
-        bool IsSuccess { get; }
+        bool IsSuccess { get; set; }
     }
     public interface IResult<out T> : IResult
     {
