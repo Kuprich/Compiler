@@ -1,5 +1,4 @@
 ﻿using ErrorOr;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Compiler.Server.Controllers
@@ -21,8 +20,10 @@ namespace Compiler.Server.Controllers
                 _ => StatusCodes.Status500InternalServerError
             };
 
-
-            return Problem(statusCode: statusCode, title: firstError.Code, detail: firstError.Description);
+            return Problem(
+                statusCode: statusCode,
+                title: firstError.Code,
+                detail: firstError.Description);
         }
     }
 }

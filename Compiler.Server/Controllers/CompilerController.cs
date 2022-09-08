@@ -18,7 +18,7 @@ public class CompilerController : ApiController
         var compiledInformationResult = await _mediator.Send(command);
 
         return compiledInformationResult.Match(
-               compiledInformation => Ok(new CompiledInformationDto() { Errors = compiledInformationResult.Value.Errors, TestResult = compiledInformationResult.Value.TestResult}),
+               compiledInformation => Ok(new CompiledInformationDto() { Errors = compiledInformationResult.Value.Errors, TestResult = compiledInformationResult.Value.TestResult }),
                errors => Problem(errors));
     }
 }

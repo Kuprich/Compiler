@@ -1,7 +1,7 @@
 ﻿namespace Compiler.Client.Infrastructure.Managers.CompilerManager;
 
 using Compiler.Application.Features.Compiler.RunAllTests;
-using ErrorOr;
+using Compiler.Client.Infrastructure.Result;
 using System.Net.Http.Json;
 
 public class CompilerManager
@@ -13,19 +13,23 @@ public class CompilerManager
         _httpClient = httpClient;
     }
 
-    public async Task<ErrorOr<CompiledInformationDto>> RunAllTests(RunAllTestsCommand command)
+    public async Task<Result<CompiledInformationDto>> RunAllTests(RunAllTestsCommand command)
     {
         var response = await _httpClient.PostAsJsonAsync(Routes.CompilerEndpoints.RunAllTests, command);
 
-        CompiledInformationDto? result =  await response.Content.ReadFromJsonAsync<CompiledInformationDto>();
+        if (response.IsSuccessStatusCode)
+        {
+            var data = await response.Content.ReadFromJsonAsync<CompiledInformationDto>();
 
-        return result;
+            return Result<CompiledInformationDto>.Succeess(data!);
+        }
+
+        var error = await response.Content.ReadFromJsonAsync<ErrorOr.Error>();
+
+        return Result<CompiledInformationDto>.Fail(new ResponseError(
+            code: error.Code,
+            description: error.Description,
+            numericType: error.NumericType
+        ));
     }
-
-    //public async Task<ErrorOr>
-    //{
-    //    //var response = await _httpClient.GetAsync(Routes.CompilerEndpoints.RunAllTests);
-    //    //var data = await response.ToResult<DashboardDataResponse>();
-    //    ////return data;
-    //}
 }
