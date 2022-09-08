@@ -1,10 +1,9 @@
-﻿using MediatR;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis;
-using Compiler.Application.Features.Compiler.RunAllTests;
+﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using Compiler.Application.Services.Interfaces;
 using ErrorOr;
-using Compiler.Domain.Errors;
+using MediatR;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Compiler.Application.Compiler.RunTests;
 

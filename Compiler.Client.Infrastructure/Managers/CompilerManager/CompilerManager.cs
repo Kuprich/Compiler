@@ -24,12 +24,9 @@ public class CompilerManager
             return Result<CompiledInformationDto>.Succeess(data!);
         }
 
-        var error = await response.Content.ReadFromJsonAsync<ErrorOr.Error>();
+        var error = await response.Content.ReadFromJsonAsync<ResultError>();
 
-        return Result<CompiledInformationDto>.Fail(new ResponseError(
-            code: error.Code,
-            description: error.Description,
-            numericType: error.NumericType
-        ));
+
+        return Result<CompiledInformationDto>.Fail(error);
     }
 }
