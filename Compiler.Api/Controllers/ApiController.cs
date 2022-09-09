@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Compiler.Server.Controllers
+namespace Compiler.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

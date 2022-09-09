@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Managers\PracticeManager\" />
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Compiler.Api.Contracts\Compiler.Api.Contracts.csproj" />
     <ProjectReference Include="..\Compiler.Application\Compiler.Application.csproj" />
   </ItemGroup>
 

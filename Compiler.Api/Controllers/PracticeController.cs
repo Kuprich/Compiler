@@ -3,7 +3,7 @@ using Compiler.Application.Features.Practice.GetPracticeCard;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Compiler.Server.Controllers
+namespace Compiler.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -36,7 +36,6 @@ namespace Compiler.Server.Controllers
             }
             catch (Exception ex)
             {
-                //TODO: реализовать обработку ошибки
                 return BadRequest(ex.Message);
             }
         }

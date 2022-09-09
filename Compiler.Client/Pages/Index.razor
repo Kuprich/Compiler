@@ -1,7 +1,7 @@
 ﻿@page "/"
 
+
 @inject Monaco _monaco
-@inject Sender _sender
 @inject CompilerManager _compilerManager
 
 <PageTitle>Index</PageTitle>
@@ -95,15 +95,10 @@
         string mainClassText = await _monaco.GetCodeAsync(MainClassTextEditorId);
         string testClassText = await _monaco.GetCodeAsync(TestClassTextEditorId);
 
-        RunAllTestsCommand command = new()
-            {
-                MainClassText = mainClassText,
-                TestClassText = testClassText
-            };
+        RunAllTestsRequest request = new(mainClassText, testClassText);
 
-        var result = await _compilerManager.RunAllTests(command);
+        var result = await _compilerManager.RunAllTests(request);
 
-        //_compiledInformation = await _sender.SendPostAsJsonAsync<CompiledInformationDto>(RunAllTestsUri, request);
     }
  
 }

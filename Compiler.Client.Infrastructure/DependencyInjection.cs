@@ -1,4 +1,4 @@
-﻿using Compiler.Client.Infrastructure.Managers.CompilerManager;
+﻿using Compiler.Client.Infrastructure.Managers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Compiler.Client.Infrastructure;

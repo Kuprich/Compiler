@@ -12,7 +12,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddScoped<Monaco>();
-builder.Services.AddTransient<Sender>();
 builder.Services.AddClientInfrastructure();
 
 await builder.Build().RunAsync();
