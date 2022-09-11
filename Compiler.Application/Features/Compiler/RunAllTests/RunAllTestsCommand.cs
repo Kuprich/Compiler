@@ -1,7 +1,7 @@
-﻿using ErrorOr;
+﻿using Compiler.Shared.Wrapper;
 using MediatR;
 
 namespace Compiler.Application.Features.Compiler.RunAllTests;
 
-public record RunAllTestsCommand(string? MainClassText, string? TestClassText) 
-    : IRequest<ErrorOr<CompiledInformationDto>>;
+public record RunAllTestsCommand(string? MainClassText, string? TestClassText)
+    : IRequest<Result<CompiledInformationDto>>;

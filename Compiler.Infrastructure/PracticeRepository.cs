@@ -3,7 +3,6 @@ using Compiler.Application.Features.Practice.GetPracticeCard;
 using Compiler.Domain.Entities;
 using Compiler.Persistence;
 using Microsoft.EntityFrameworkCore;
-using static Compiler.Application.Features.Practice.GetAllPracticeHeadings.PracticeHeadingsDto;
 
 namespace Compiler.Infrastructure;
 
@@ -16,19 +15,19 @@ public class PracticeRepository : IPracticeRepository
         _practiceDbContext = practiceDbContext;
     }
 
-    public async Task<PracticeHeadingsDto> GetPracticeHeadingsAsync()
+    public async Task<PracticesDto> GetAllPracticesAsync()
     {
-        List<PracticeHeading> headings = await _practiceDbContext.PracticeCards
-            .Select(practiceCard => new PracticeHeading
+        List<PracticeTitle> titles = await _practiceDbContext.PracticeCards
+            .Select(practiceCard => new PracticeTitle
             {
                 Id = practiceCard.Id,
-                Heading = practiceCard.Heading,
+                Title = practiceCard.Title,
             })
             .ToListAsync();
 
-        return new PracticeHeadingsDto
+        return new PracticesDto
         {
-            Headings = headings
+            Titles = titles
         };
     }
 
@@ -45,7 +44,7 @@ public class PracticeRepository : IPracticeRepository
         {
             Id = practiceCard.Id,
             Description = practiceCard.Description,
-            Heading = practiceCard.Heading,
+            Heading = practiceCard.Title,
             ProjectData = practiceCard.ProjectData,
         };
 

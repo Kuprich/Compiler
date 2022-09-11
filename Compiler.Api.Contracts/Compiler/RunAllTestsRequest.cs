@@ -1,4 +1,4 @@
-﻿namespace Compiler.Api.Contracts.Compiler.RunAllTests;
+﻿namespace Compiler.Api.Contracts.Compiler;
 
 public record RunAllTestsRequest(
     string? MainClassText,

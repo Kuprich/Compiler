@@ -1,13 +1,13 @@
 ﻿using Compiler.Application.Features.Compiler.RunAllTests;
 using Compiler.Application.Services.Interfaces;
-using ErrorOr;
+using Compiler.Shared.Wrapper;
 using MediatR;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
 namespace Compiler.Application.Compiler.RunTests;
 
-public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, ErrorOr<CompiledInformationDto>>
+public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, Result<CompiledInformationDto>>
 {
     private readonly ICompilerService _compilerService;
     private readonly ITestRunnerService _testRunnerService;
@@ -17,24 +17,24 @@ public class RunAllTestsCommandHandler : IRequestHandler<RunAllTestsCommand, Err
         _compilerService = compilerService;
         _testRunnerService = testRunnerService;
     }
-    public Task<ErrorOr<CompiledInformationDto>> Handle(RunAllTestsCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CompiledInformationDto>> Handle(RunAllTestsCommand command, CancellationToken cancellationToken)
     {
-        CSharpCompilation compilation = _compilerService.CreateCompilationObject(new[] { request.MainClassText!, request.TestClassText! });
+        CSharpCompilation compilation = _compilerService.CreateCompilationObject(new[] { command.MainClassText!, command.TestClassText! });
 
         List<string> compilationErrors = _compilerService.CompileSourceCode(compilation);
 
-        ErrorOr<CompiledInformationDto> result = new CompiledInformationDto();
+        CompiledInformationDto dto = new();
 
         if (compilationErrors.Any())
         {
-            result.Value.Errors = compilationErrors;
-            return Task.FromResult(result);
+            dto.Errors = compilationErrors;
+            return await Result<CompiledInformationDto>.SucceessAsync(dto);
         }
 
         List<TestResult> testResult = _testRunnerService.RunAllTestsFromAssembly(_compilerService.Assembly!);
 
-        result.Value.TestResult = testResult;
+        dto.TestResult = testResult;
 
-        return Task.FromResult(result);
+        return await Result<CompiledInformationDto>.SucceessAsync(dto);
     }
 }

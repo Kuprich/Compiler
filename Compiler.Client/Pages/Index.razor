@@ -1,25 +1,32 @@
 ﻿@page "/"
+@using Compiler.Application.Features.Compiler.RunAllTests
+@using Compiler.Application.Features.Practice.GetAllPracticeHeadings
+@using Compiler.Application.Features.Practice.GetPracticeCard
+
 
 
 @inject Monaco _monaco
 @inject CompilerManager _compilerManager
+@inject PracticeManager _practiceManager
 
 <PageTitle>Index</PageTitle>
 
 <div class="container-fluid">
-    <div class="row">
-        @*<select>
+    <div class="row mb-2">
+        <button onclick="@(() => LoadPracticeAsync(Guid.Empty))"></button>
+        <select>
+            
             <option selected disabled>Выберите задачу:</option>
 
-            @if (_practiceHeadings != null)
+            @if (_practices != null && _practices.Titles != null)
             {
-                @foreach (var practiceHeading in _practiceHeadings)
+                @foreach (var practiceTitle in _practices.Titles)
                 {
-                    <option>@practiceHeading.Heading</option>
+                    <option @onclick="(() => LoadPracticeAsync(practiceTitle.Id))">@practiceTitle.Title</option>
                 }
             }
 
-        </select>*@
+        </select>
     </div>
     <div class="row">
         <div class="col-6">
@@ -51,7 +58,7 @@
     <div class="row">
         <div class="col">
 
-         @*   <CompilationResult CompiledInformation="_compiledInformation" />*@
+            <CompilationResult CompiledInformation="_compiledInformation" />
 
         </div>
     </div>
@@ -67,13 +74,23 @@
     private const string MainClassTextEditorId = "main-class-text-edittor";
     private const string TestClassTextEditorId = "test-class-text-edittor";
 
-    //private CompiledInformationDto? _compiledInformation;
-    //private List<PracticeHeadingDto>? _practiceHeadings;
+    private CompiledInformationDto? _compiledInformation;
+    private PracticesDto? _practices;
+    private PracticeCardDto? _practiceCard;
 
 
     protected override async Task OnInitializedAsync()
     {
-        //_practiceHeadings = await _sender.SendGetAsync<List<PracticeHeadingDto>>(GetAllPracticeHeadingsUri);
+        var result = await _practiceManager.SendGetAllPractices();
+
+        if (result != null && result.IsSuccess)
+        {
+            _practices = result.Data;
+        }
+        else
+        {
+            //TODO: Подумать над обработкой неудачного результата получения списка задач
+        }
 
         await base.OnInitializedAsync();
     }
@@ -97,8 +114,34 @@
 
         RunAllTestsRequest request = new(mainClassText, testClassText);
 
-        var result = await _compilerManager.RunAllTests(request);
+        var result = await _compilerManager.SendRunAllTests(request);
+
+        if (result != null && result.IsSuccess)
+        {
+            _compiledInformation = result.Data;
+        }
+        else
+        {
+            //TODO:Подумать над обработкой неуспешного результата запуска теста
+        }
 
     }
- 
+    private async Task LoadPracticeAsync(Guid id)
+    {
+        var result = await _practiceManager.SendGetPracticeCardAsync(id);
+
+        if (result != null && result.IsSuccess)
+        {
+            _practiceCard = result.Data;
+            await _monaco.SetCodeAsync(MainClassTextEditorId, _practiceCard?.ProjectData?.MainClassText ?? "");
+            await _monaco.SetCodeAsync(TestClassTextEditorId, _practiceCard?.ProjectData?.TestClassText ?? "");
+        }
+        else
+        {
+             //TODO:Подумать над обработкой неуспешного результата загрузки карточки с заданием
+        }
+
+
+    }
+
 }

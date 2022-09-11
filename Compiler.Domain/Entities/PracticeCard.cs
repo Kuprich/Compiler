@@ -4,7 +4,7 @@ namespace Compiler.Domain.Entities;
 
 public class PracticeCard : EntityBase
 {
-    public string? Heading { get; set; }
+    public string? Title { get; set; }
     public string? Description { get; set; }
     public ProjectData? ProjectData { get; set; }
 }

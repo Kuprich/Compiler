@@ -5,6 +5,6 @@ namespace Compiler.Persistence;
 
 public interface IPracticeRepository
 {
-    Task<PracticeHeadingsDto> GetPracticeHeadingsAsync();
+    Task<PracticesDto> GetAllPracticesAsync();
     Task<PracticeCardDto?> GetPracticeCard(Guid practiceCardId);
 }

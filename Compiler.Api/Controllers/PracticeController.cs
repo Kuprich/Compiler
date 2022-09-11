@@ -15,9 +15,9 @@ namespace Compiler.Api.Controllers
 
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllPracticeHeadings()
+        public async Task<IActionResult> GetAllPractices()
         {
-            var query = new GetPracticeHeadingsQuery();
+            var query = new GetAllPracticesQuery();
 
             var allPracticeHeadings = await _mediator.Send(query);
 

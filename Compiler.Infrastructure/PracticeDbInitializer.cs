@@ -10,7 +10,7 @@ public class PracticeDbInitializer
         Enumerable.Range(0, 5)
             .Select(i => new PracticeCard
             {
-                Heading = $"Practice card Heading ({i})",
+                Title = $"Practice card Heading ({i})",
                 Description = $"Practice card Description ({i})",
                 ProjectData = new ProjectData()
                 {

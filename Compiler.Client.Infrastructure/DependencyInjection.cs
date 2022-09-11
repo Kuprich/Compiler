@@ -8,6 +8,7 @@ public static class DependencyInjection
     public static IServiceCollection AddClientInfrastructure(this IServiceCollection services)
     {
         services.AddScoped<CompilerManager>();
+        services.AddScoped<PracticeManager>();
         return services;
     }
 }
