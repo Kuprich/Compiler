@@ -13,16 +13,15 @@
 
 <div class="container-fluid">
     <div class="row mb-2">
-        <button onclick="@(() => LoadPracticeAsync(Guid.Empty))"></button>
-        <select>
-            
+        <select @onchange="SelectedPracticeChanged">
+
             <option selected disabled>Выберите задачу:</option>
 
             @if (_practices != null && _practices.Titles != null)
             {
                 @foreach (var practiceTitle in _practices.Titles)
                 {
-                    <option @onclick="(() => LoadPracticeAsync(practiceTitle.Id))">@practiceTitle.Title</option>
+                    <option value="@practiceTitle.Id">@practiceTitle.Title</option>
                 }
             }
 
@@ -126,22 +125,27 @@
         }
 
     }
-    private async Task LoadPracticeAsync(Guid id)
+
+    private async Task SelectedPracticeChanged(ChangeEventArgs e)
     {
-        var result = await _practiceManager.SendGetPracticeCardAsync(id);
-
-        if (result != null && result.IsSuccess)
+        if (e.Value != null)
         {
-            _practiceCard = result.Data;
-            await _monaco.SetCodeAsync(MainClassTextEditorId, _practiceCard?.ProjectData?.MainClassText ?? "");
-            await _monaco.SetCodeAsync(TestClassTextEditorId, _practiceCard?.ProjectData?.TestClassText ?? "");
-        }
-        else
-        {
-             //TODO:Подумать над обработкой неуспешного результата загрузки карточки с заданием
-        }
+            Guid practiceCardId = Guid.Parse(e.Value.ToString() ?? "");
 
+            var result = await _practiceManager.SendGetPracticeCardAsync(practiceCardId);
 
+            if (result != null && result.IsSuccess)
+            {
+                _practiceCard = result.Data;
+                await _monaco.SetCodeAsync(MainClassTextEditorId, _practiceCard?.ProjectData?.MainClassText ?? "");
+                await _monaco.SetCodeAsync(TestClassTextEditorId, _practiceCard?.ProjectData?.TestClassText ?? "");
+            }
+            else
+            {
+                //TODO:Подумать над обработкой неуспешного результата загрузки карточки с заданием
+            }
+        }
     }
+
 
 }

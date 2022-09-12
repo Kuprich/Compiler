@@ -1,5 +1,4 @@
-﻿using Compiler.Application.Exceptions;
-using Compiler.Persistence;
+﻿using Compiler.Persistence;
 using Compiler.Shared.Wrapper;
 using MediatR;
 
@@ -18,9 +17,9 @@ public class GetPracticeCardQueryHandler : IRequestHandler<GetPracticeCardQuery,
     {
         PracticeCardDto? practiceCard = await _practiceRepository.GetPracticeCard(request.Id);
 
-        if (practiceCard != null)
+        if (practiceCard == null)
         {
-           return await Result<PracticeCardDto>.FailAsync("Practicee card with current id not found"); 
+            return await Result<PracticeCardDto>.FailAsync("Practicee card with current id not found");
         }
 
         return await Result<PracticeCardDto>.SucceessAsync(practiceCard);

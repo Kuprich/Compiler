@@ -25,8 +25,9 @@ namespace Compiler.Api.Controllers
         }
 
         [HttpGet("[action]/{Id}")]
-        public async Task<IActionResult> GetPractice([FromRoute] Guid practiceCardId)
+        public async Task<IActionResult> GetPractice([FromRoute] string id)
         {
+            Guid practiceCardId = Guid.Parse(id);
             var query = new GetPracticeCardQuery() { Id = practiceCardId };
 
             try

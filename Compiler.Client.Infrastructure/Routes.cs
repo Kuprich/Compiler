@@ -10,6 +10,6 @@ public class Routes
     public class PracticeEndpoints
     {
         public const string GetAllPractices = "api/Practice/GetAllPractices";
-        public static string GetPracticeCard(Guid id) => $"api/Practice/GetPracticeCard?{id}";
+        public static string GetPracticeCard(Guid id) => $"api/Practice/GetPractice/{id}";
     }
 }
